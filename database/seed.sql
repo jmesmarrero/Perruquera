@@ -30,7 +30,7 @@ VALUES
 ('Limpieza de oídos', 'Limpieza suave del canal auditivo con productos específicos para mascotas.', 6.00, 10),
 ('Deslanado', 'Eliminación del pelo muerto y del exceso de subpelo para mejorar el manto.', 20.00, 45);
 
-INSERT INTO horario (dia_semana, hora_apetura, hora_cierre)
+INSERT INTO horario (dia_semana, hora_apertura, hora_cierre)
 VALUES
 ('LUNES', '09:30', '17:00'),
 ('MARTES', '09:30', '17:00'),
