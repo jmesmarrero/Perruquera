@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS servicio CASCADE;
 DROP TABLE IF EXISTS cita_servicio CASCADE;
 DROP TABLE IF EXISTS bloqueo_horario CASCADE;
 DROP TABLE IF EXISTS estado_cita CASCADE;
+DROP TABLE IF EXISTS horario CASCADE;
 
 -- crear tipos (ENUM)
 
@@ -19,6 +20,17 @@ CREATE TYPE genero AS ENUM(
     'MACHO',
     'HEMBRA',
     'DESCONOCIDO'
+);
+
+DROP TYPE IF EXISTS dia_semana CASCADE;
+CREATE TYPE dia_semana AS ENUM(
+    'LUNES',
+    'MARTES',
+    'MIERCOLES',
+    'JUEVES',
+    'VIERNES',
+    'SABADO',
+    'DOMINGO'
 );
 
 -- crear tablas
@@ -47,6 +59,21 @@ CREATE TABLE servicio(
     activo BOOLEAN DEFAULT TRUE
 );
 
+CREATE TABLE usuario_rol(
+    id_usuario INTEGER NOT NULL,
+    id_rol INTEGER NOT NULL,
+
+    PRIMARY KEY (id_usuario, id_rol),
+
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (id_rol)
+        REFERENCES rol(id)
+        ON DELETE RESTRICT
+);
+
 CREATE TABLE usuario(
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_rol INTEGER NOT NULL,
@@ -56,7 +83,7 @@ CREATE TABLE usuario(
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    activo BOOLEAN DEFAULT TRUE,
+    activo BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (id_rol) REFERENCES rol(id) ON DELETE RESTRICT
 );
 
@@ -82,6 +109,16 @@ CREATE TABLE mascota(
     FOREIGN KEY (id_raza) REFERENCES raza(id) ON DELETE RESTRICT
 );
 
+CREATE TABLE horario(
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    dia_semana dia_semana NOT NULL,
+    hora_apertura TIME NOT NULL,
+    hora_cierre TIME NOT NULL,
+    activo BOOLEAN NOT NULL DEFAULT TRUE,
+    UNIQUE (dia_semana),
+    CHECK (hora_apertura < hora_cierre) 
+);
+
 CREATE TABLE cita(
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_mascota INTEGER NOT NULL,
@@ -102,7 +139,7 @@ CREATE TABLE bloqueo_horario(
     hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
     motivo TEXT NOT NULL,
-    activo BOOLEAN DEFAULT TRUE,
+    activo BOOLEAN NOT NULL DEFAULT TRUE,
     CHECK (hora_inicio < hora_fin),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
