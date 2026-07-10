@@ -37,3 +37,45 @@ VALUES
 ('MIERCOLES', '09:30', '17:00'),
 ('JUEVES', '09:30', '17:00'),
 ('VIERNES', '09:30', '17:00');
+
+INSERT INTO raza (id_especie, nombre)
+VALUES
+-- Perros
+(1, 'Labrador Retriever'),
+(1, 'Golden Retriever'),
+(1, 'Pastor Alemán'),
+(1, 'Border Collie'),
+(1, 'Caniche'),
+(1, 'Yorkshire Terrier'),
+(1, 'Chihuahua'),
+(1, 'Bulldog Francés'),
+(1, 'Pomerania'),
+(1, 'Bichón Maltés'),
+(1, 'Cocker Spaniel'),
+(1, 'Shih Tzu'),
+(1, 'Teckel'),
+(1, 'Husky Siberiano'),
+(1, 'Mestizo'),
+
+-- Gatos
+(2, 'Europeo Común'),
+(2, 'Persa'),
+(2, 'Siamés'),
+(2, 'Maine Coon'),
+(2, 'British Shorthair'),
+(2, 'Ragdoll'),
+(2, 'Bengalí'),
+(2, 'Sphynx'),
+(2, 'Bosque de Noruega'),
+(2, 'Mestizo'),
+
+-- Otras especies
+(3, 'Conejo'),
+(3, 'Cobaya'),
+(3, 'Hámster'),
+(3, 'Hurón'),
+(3, 'Loro'),
+(3, 'Periquito'),
+(3, 'Tortuga'),
+(3, 'Iguana'),
+(3, 'Otro');
