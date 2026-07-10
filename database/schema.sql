@@ -74,16 +74,10 @@ CREATE TABLE usuario(
 CREATE TABLE usuario_rol(
     id_usuario INTEGER NOT NULL,
     id_rol INTEGER NOT NULL,
-
     PRIMARY KEY (id_usuario, id_rol),
 
-    FOREIGN KEY (id_usuario)
-        REFERENCES usuario(id)
-        ON DELETE CASCADE,
-
-    FOREIGN KEY (id_rol)
-        REFERENCES rol(id)
-        ON DELETE RESTRICT
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_rol) REFERENCES rol(id) ON DELETE RESTRICT
 );
 
 CREATE TABLE raza(
