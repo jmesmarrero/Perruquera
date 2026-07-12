@@ -83,12 +83,12 @@ public class BloqueoHorario {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHorarioFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHorarioFin(LocalTime horarioFin) {
-        this.horaFin = horarioFin;
+    public void setHorarioFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
     }
 
     public String getMotivo() {
@@ -111,7 +111,7 @@ public class BloqueoHorario {
     public String toString() {
         return "BloqueoHorario [id=" + id + ", usuarioId=" + (usuario != null ? usuario.getId() : null) + ", fecha="
                 + fecha + ", horaInicio=" + horaInicio
-                + ", horarioFin=" + horaFin + ", motivo=" + motivo + ", activo=" + activo + "]";
+                + ", horaFin=" + horaFin + ", motivo=" + motivo + ", activo=" + activo + "]";
     }
 
     @Override
