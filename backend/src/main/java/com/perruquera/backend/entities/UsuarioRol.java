@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -63,10 +62,13 @@ public class UsuarioRol {
         this.rol = rol;
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioRol [id=" + id + ", usuario=" + usuario + ", rol=" + rol + "]";
-    }
+   @Override
+public String toString() {
+    return "UsuarioRol [id=" + id
+            + ", usuarioId=" + (usuario != null ? usuario.getId() : null)
+            + ", rolId=" + (rol != null ? rol.getId() : null)
+            + "]";
+}
 
     @Override
     public boolean equals(Object obj) {

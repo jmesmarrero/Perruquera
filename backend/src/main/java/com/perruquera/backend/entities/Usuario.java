@@ -1,6 +1,6 @@
 package com.perruquera.backend.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -18,13 +18,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+    private String apellidos;
     private String telefono;
     private String email;
     @Column(name = "password_hash")
     private String passwordHash;
 
     @Column(name = "fecha_registro")
-    private LocalDate fechaResgistro;
+    private LocalDateTime fechaRegistro;
     private boolean activo = true;
 
     public Usuario() {
@@ -34,14 +35,16 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(Long id, String nombre, String telefono, String email, String passwordHash, LocalDate fechaResgistro,
+    public Usuario(Long id, String nombre, String apellidos, String telefono, String email, String passwordHash,
+            LocalDateTime fechaRegistro,
             boolean activo) {
         this.id = id;
         this.nombre = nombre;
+        this.apellidos = apellidos;
         this.telefono = telefono;
         this.email = email;
         this.passwordHash = passwordHash;
-        this.fechaResgistro = fechaResgistro;
+        this.fechaRegistro = fechaRegistro;
         this.activo = activo;
     }
 
@@ -59,6 +62,14 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getTelefono() {
@@ -85,12 +96,12 @@ public class Usuario {
         this.passwordHash = passwordHash;
     }
 
-    public LocalDate getFechaResgistro() {
-        return fechaResgistro;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFechaResgistro(LocalDate fechaResgistro) {
-        this.fechaResgistro = fechaResgistro;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public boolean isActivo() {
@@ -104,7 +115,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario [id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email
-                + ", passwordHash=" + passwordHash + ", fechaResgistro=" + fechaResgistro + ", activo=" + activo + "]";
+                + ", passwordHash=" + passwordHash + ", fechaResgistro=" + fechaRegistro + ", activo=" + activo + "]";
     }
 
     @Override
@@ -126,6 +137,5 @@ public class Usuario {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-    
 
 }
