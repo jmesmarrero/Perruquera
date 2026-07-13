@@ -52,6 +52,6 @@ public interface IRolPersistence {
      * @param nombre nombre del rol
      * @return rol ecnontrado si existe
      */
-    Optional<Rol>findByNombre(String nombre);
+    Optional<Rol> findByNombre(String nombre);
 
 }
