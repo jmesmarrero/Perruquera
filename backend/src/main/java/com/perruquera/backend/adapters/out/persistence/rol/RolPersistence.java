@@ -1,4 +1,4 @@
-package com.perruquera.backend.adapters.out.persistence;
+package com.perruquera.backend.adapters.out.persistence.rol;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +32,11 @@ public class RolPersistence implements IRolPersistence{
 
     @Override
     public Optional<Rol> update(Long id, Rol rol) {
-        if(!jpaRepo.existsById(id)){
+        if(!existsById(id)){
             return Optional.empty();
         }
         rol.setId(id);
-        return Optional.of(jpaRepo.save(rol));
+        return Optional.of(save(rol));
     }
 
     @Override
@@ -47,6 +47,11 @@ public class RolPersistence implements IRolPersistence{
     @Override
     public boolean existsById(Long id) {
         return jpaRepo.existsById(id);
+    }
+
+    @Override
+    public Optional<Rol> findByNombre(String nombre) {
+        return jpaRepo.findByNombre(nombre);
     }
 
 }
