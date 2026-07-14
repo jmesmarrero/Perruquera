@@ -3,8 +3,11 @@ package com.perruquera.backend.adapters.out.persistence.estadoCita;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.perruquera.backend.entities.EstadoCita;
 
+@Repository
 public class EstadoCitaPersistence implements IEstadoCitaPersistence {
 
     private final EstadoCitaJpaPersistence jpaRepo;
