@@ -87,7 +87,7 @@ public class BloqueoHorario {
         return horaFin;
     }
 
-    public void setHorarioFin(LocalTime horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 
