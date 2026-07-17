@@ -1,5 +1,7 @@
 package com.perruquera.backend.business.validation;
 
+import java.time.LocalDateTime;
+
 public final class ValidationUtils {
 
     private ValidationUtils() {
@@ -19,6 +21,15 @@ public final class ValidationUtils {
 
     }
 
+    public static boolean isValidApellido(String apellido) {
+        if (!isNotBlank(apellido)) {
+            return false;
+        }
+        apellido = apellido.trim();
+
+        return apellido.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+([ -][A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$");
+    }
+
     public static boolean isValidTexto(String texto) {
         if (!isNotBlank(texto)) {
             return false;
@@ -28,7 +39,6 @@ public final class ValidationUtils {
         return texto.length() <= 500;
     }
 
-    // Email
     public static boolean isValidEmail(String email) {
         if (!isNotBlank(email)) {
             return false;
@@ -38,12 +48,31 @@ public final class ValidationUtils {
         return email.matches("^[a-z.+_-]+@[a-z.+_-]+\\.[a-z]{2,}$");
     }
 
-    //telefono
-    public static boolean isValidTelefono(String telefono){
+    public static boolean isValidTelefono(String telefono) {
         if (!isNotBlank(telefono)) {
             return false;
         }
         telefono = telefono.trim();
         return telefono.matches("^[6-9][0-9]{8}$");
     }
+
+    public static boolean isValidPassword(String password) {
+        if (!isNotBlank(password)) {
+            return false;
+        }
+        password = password.trim();
+
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+    }
+
+    // Fechas
+    public static boolean isValidFechaHora(LocalDateTime fechaHora) {
+        return fechaHora != null;
+    }
+
+    // BOOLEAN
+    public static boolean isFalse(Boolean value) {
+    return Boolean.FALSE.equals(value);
+}
+
 }
