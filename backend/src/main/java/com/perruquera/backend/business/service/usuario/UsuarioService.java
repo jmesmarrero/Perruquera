@@ -1,10 +1,12 @@
 package com.perruquera.backend.business.service.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
 import com.perruquera.backend.business.validation.ValidationUsuario;
+import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Usuario;
 
 public class UsuarioService implements IUsuarioService {
@@ -18,6 +20,9 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public Usuario save(Usuario usuario) {
         if (!ValidationUsuario.isValidUsuario(usuario)) {
+            return null;
+        }
+        if (repo.existsByEmail(usuario.getEmail())) {
             return null;
         }
         return repo.save(usuario);
@@ -60,37 +65,51 @@ public class UsuarioService implements IUsuarioService {
         if (id == null) {
             return;
         }
+        if (!repo.existsById(id)) {
+            return;
+        }
         repo.deleteById(id);
     }
 
     @Override
     public boolean existsById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        if (id == null) {
+            return false;
+        }
+        return repo.existsById(id);
     }
 
     @Override
     public List<Usuario> findByNombre(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByNombre'");
+        if (!ValidationUtils.isValidNombre(nombre)) {
+            return new ArrayList<>();
+        }
+        return repo.findByNombre(nombre);
     }
 
     @Override
     public Optional<Usuario> findByEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
+        if (!ValidationUtils.isValidEmail(email)) {
+            return Optional.empty();
+        }
+        return repo.findByEmail(email);
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsByEmail'");
+        if (!ValidationUtils.isValidEmail(email)) {
+            return false;
+        }
+        return repo.existsByEmail(email);
     }
 
     @Override
     public Optional<Usuario> findByTelefono(String telefono) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByTelefono'");
+        if (!ValidationUtils.isValidTelefono(telefono)) {
+            return Optional.empty();
+        }
+
+        return repo.findByTelefono(telefono);
     }
 
 }
