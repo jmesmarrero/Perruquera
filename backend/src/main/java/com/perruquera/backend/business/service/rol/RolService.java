@@ -22,6 +22,8 @@ public class RolService implements IRolService {
             return null;
         }
 
+        //.isPresent para no guardar dos roles iguales
+        // 1. ADMIN - 3. ADMIN (nuevamente)
         if (repo.findByNombre(rol.getNombre()).isPresent()) {
             return null;
         }

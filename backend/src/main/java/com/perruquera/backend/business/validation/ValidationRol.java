@@ -7,6 +7,8 @@ public final class ValidationRol {
     private ValidationRol() {
     }
 
+    //Mejor que un Enum, proque se puede aañdir nuevo Rol en el futuro. 
+    // añadir || "VETERINARIA".equals(nombre) y el el seed.sql
     private static boolean isRolPermitido(String nombre) {
         return "ADMIN".equals(nombre)
                 || "EMPLEADA".equals(nombre)
