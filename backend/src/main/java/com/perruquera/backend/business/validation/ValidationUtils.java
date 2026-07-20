@@ -1,5 +1,6 @@
 package com.perruquera.backend.business.validation;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public final class ValidationUtils {
@@ -65,6 +66,15 @@ public final class ValidationUtils {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
 
+    // Numeros
+    public static boolean isValidPrecio(BigDecimal precio) {
+        return precio != null && precio.compareTo(BigDecimal.ZERO) > 0;
+    }
+
+    public static boolean isValidDuracion(int duracionEstimada) {
+        return duracionEstimada > 0;
+    }
+
     // Fechas
     public static boolean isValidFechaHora(LocalDateTime fechaHora) {
         return fechaHora != null;
@@ -72,7 +82,7 @@ public final class ValidationUtils {
 
     // BOOLEAN
     public static boolean isFalse(Boolean value) {
-    return Boolean.FALSE.equals(value);
-}
+        return Boolean.FALSE.equals(value);
+    }
 
 }
