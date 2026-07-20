@@ -2,6 +2,9 @@ package com.perruquera.backend.business.validation;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import com.perruquera.backend.entities.DiaSemana;
 
 public final class ValidationUtils {
 
@@ -75,9 +78,21 @@ public final class ValidationUtils {
         return duracionEstimada > 0;
     }
 
-    // Fechas
+    // Horas y Fechas
+    public static boolean isValidHora(LocalTime hora) {
+        return hora != null;
+    }
+
+    public static boolean isValidRangoHorario(LocalTime horaApertura, LocalTime horaCierre) {
+        return horaApertura != null && horaCierre != null && horaApertura.isBefore(horaCierre);
+    }
+
     public static boolean isValidFechaHora(LocalDateTime fechaHora) {
         return fechaHora != null;
+    }
+
+    public static boolean isValidDiaSemana(DiaSemana diaSemana) {
+        return diaSemana != null;
     }
 
     // BOOLEAN

@@ -1,5 +1,5 @@
 package com.perruquera.backend.adapters.out.persistence.horario;
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,6 +13,6 @@ public interface HorarioJpaPersistence extends JpaRepository<Horario, Long> {
      * @param diaSemana nombre del diaSemana
      * @return diaSemana ecnontrado si existe
      */
-    Optional<Horario>findBydiaSemana(DiaSemana diaSemana);
+    List<Horario>findByDiaSemana(DiaSemana diaSemana);
 
 }

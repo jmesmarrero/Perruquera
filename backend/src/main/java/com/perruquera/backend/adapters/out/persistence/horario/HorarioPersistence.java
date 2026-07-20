@@ -52,8 +52,8 @@ public class HorarioPersistence implements IHorarioPersistence {
     }
 
     @Override
-    public Optional<Horario> findBydiaSemana(DiaSemana diaSemana) {
-        return jpaRepo.findBydiaSemana(diaSemana);
+    public List<Horario> findByDiaSemana(DiaSemana diaSemana) {
+        return jpaRepo.findByDiaSemana(diaSemana);
     }
 
 }

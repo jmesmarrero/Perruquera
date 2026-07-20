@@ -1,4 +1,4 @@
-package com.perruquera.backend.adapters.out.persistence.horario;
+package com.perruquera.backend.business.service.horario;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,8 @@ import java.util.Optional;
 import com.perruquera.backend.entities.DiaSemana;
 import com.perruquera.backend.entities.Horario;
 
-public interface IHorarioPersistence {
+public interface IHorarioService {
+
     /**
      * Funcion para crear un nuevo horario 
      * @param horario horario que se quiere crear
