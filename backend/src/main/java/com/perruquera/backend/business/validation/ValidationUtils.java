@@ -102,6 +102,9 @@ public final class ValidationUtils {
     public static boolean isValidHora(LocalTime hora) {
         return hora != null;
     }
+    public static boolean isValidFecha(LocalDate fecha) {
+        return fecha != null;
+    }
 
     public static boolean isValidRangoHorario(LocalTime horaApertura, LocalTime horaCierre) {
         return horaApertura != null && horaCierre != null && horaApertura.isBefore(horaCierre);
