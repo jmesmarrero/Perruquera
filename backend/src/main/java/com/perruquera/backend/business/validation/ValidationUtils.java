@@ -1,6 +1,7 @@
 package com.perruquera.backend.business.validation;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -69,6 +70,21 @@ public final class ValidationUtils {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
 
+    public static boolean isValidFotoUrl(String fotoUrl){
+
+         if (!isNotBlank(fotoUrl)) {
+        return false;
+    }
+
+    fotoUrl = fotoUrl.trim().toLowerCase();
+
+    return fotoUrl.endsWith(".jpg")
+            || fotoUrl.endsWith(".jpeg")
+            || fotoUrl.endsWith(".png")
+            || fotoUrl.endsWith(".webp");
+
+    }
+
     // Numeros
     public static boolean isValidPrecio(BigDecimal precio) {
         return precio != null && precio.compareTo(BigDecimal.ZERO) > 0;
@@ -76,6 +92,10 @@ public final class ValidationUtils {
 
     public static boolean isValidDuracion(int duracionEstimada) {
         return duracionEstimada > 0;
+    }
+
+    public static boolean isValidPeso(BigDecimal peso){
+        return peso  != null && peso.compareTo(BigDecimal.ZERO) > 0;
     }
 
     // Horas y Fechas
@@ -93,6 +113,10 @@ public final class ValidationUtils {
 
     public static boolean isValidDiaSemana(DiaSemana diaSemana) {
         return diaSemana != null;
+    }
+
+    public static boolean isValidFechaNacimiento(LocalDate fechaNacimiento){
+        return fechaNacimiento != null && fechaNacimiento.isBefore(LocalDate.now());
     }
 
     // BOOLEAN
