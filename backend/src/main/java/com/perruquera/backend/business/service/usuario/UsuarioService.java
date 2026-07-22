@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
 import com.perruquera.backend.business.validation.ValidationUsuario;
 import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Usuario;
 
+@Service
 public class UsuarioService implements IUsuarioService {
 
     private final IUsuarioPersistence repo;
