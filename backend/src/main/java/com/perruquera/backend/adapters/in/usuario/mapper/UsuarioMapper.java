@@ -10,10 +10,10 @@ import com.perruquera.backend.entities.Usuario;
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "passwordHash", ignore = true)
-    @Mapping(target = "fechaRegistro", ignore = true)
-    @Mapping(target = "activo", ignore = true)
+    @Mapping(target = "id", ignore = true) //generado por la base de datos.
+    @Mapping(target = "passwordHash", ignore = true) //generado a partir de password.
+    @Mapping(target = "fechaRegistro", ignore = true) // asignado automáticamente.
+    @Mapping(target = "activo", ignore = true)// valor por defecto.
     // lo de arriba para que el toDomain lo ignore porque MapStruct simplemente te
     // está avisando de que hay propiedades de destino sin asignar.
     Usuario toDomain(UsuarioRequestDTO requestDTO);
