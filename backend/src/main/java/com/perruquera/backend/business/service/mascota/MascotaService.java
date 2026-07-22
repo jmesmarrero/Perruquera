@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.mascota.IMascotaPersistence;
 import com.perruquera.backend.business.validation.ValidationMascota;
 import com.perruquera.backend.business.validation.ValidationUsuario;
@@ -11,6 +13,7 @@ import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Mascota;
 import com.perruquera.backend.entities.Usuario;
 
+@Service
 public class MascotaService implements IMascotaService {
 
     private final IMascotaPersistence repo;

@@ -3,10 +3,14 @@ package com.perruquera.backend.business.service.rol;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.rol.IRolPersistence;
 import com.perruquera.backend.business.validation.ValidationRol;
 import com.perruquera.backend.entities.Rol;
 
+
+@Service
 public class RolService implements IRolService {
 
     private final IRolPersistence repo;

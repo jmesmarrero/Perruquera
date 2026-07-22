@@ -3,11 +3,14 @@ package com.perruquera.backend.business.service.servicio;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.servicio.IServicioPersistence;
 import com.perruquera.backend.business.validation.ValidationServicio;
 import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Servicio;
 
+@Service
 public class ServicioService implements IServicioService {
 
     private final IServicioPersistence repo;

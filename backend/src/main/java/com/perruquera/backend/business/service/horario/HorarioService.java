@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.horario.IHorarioPersistence;
 import com.perruquera.backend.business.validation.ValidationHorario;
 import com.perruquera.backend.business.validation.ValidationUtils;
@@ -11,7 +13,7 @@ import com.perruquera.backend.entities.DiaSemana;
 import com.perruquera.backend.entities.Horario;
 
 
-
+@Service
 public class HorarioService implements IHorarioService {
 
     private final IHorarioPersistence repo;

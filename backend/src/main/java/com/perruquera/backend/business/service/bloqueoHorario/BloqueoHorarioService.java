@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.bloqueoHorario.IBloqueoHorarioPersistence;
 import com.perruquera.backend.business.validation.ValidationBloqueoHorario;
 import com.perruquera.backend.business.validation.ValidationUsuario;
@@ -12,6 +14,7 @@ import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.BloqueoHorario;
 import com.perruquera.backend.entities.Usuario;
 
+@Service
 public class BloqueoHorarioService implements IBloqueoHorarioService {
 
     private final IBloqueoHorarioPersistence repo;

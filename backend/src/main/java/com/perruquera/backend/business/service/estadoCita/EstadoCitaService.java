@@ -3,11 +3,15 @@ package com.perruquera.backend.business.service.estadoCita;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.estadoCita.IEstadoCitaPersistence;
 import com.perruquera.backend.business.validation.ValidationEstadoCita;
 import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.EstadoCita;
 
+
+@Service
 public class EstadoCitaService implements IEstadoCitaService {
 
     private final IEstadoCitaPersistence repo;

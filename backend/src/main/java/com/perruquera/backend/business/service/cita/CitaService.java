@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.cita.ICitaPersistence;
 import com.perruquera.backend.business.validation.ValidationCita;
 import com.perruquera.backend.business.validation.ValidationEstadoCita;
@@ -14,6 +16,7 @@ import com.perruquera.backend.entities.Cita;
 import com.perruquera.backend.entities.EstadoCita;
 import com.perruquera.backend.entities.Mascota;
 
+@Service
 public class CitaService implements ICitaService {
 
     private ICitaPersistence repo;

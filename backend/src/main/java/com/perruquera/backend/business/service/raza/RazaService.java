@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.raza.IRazaPersistence;
 import com.perruquera.backend.business.validation.ValidationEspecie;
 import com.perruquera.backend.business.validation.ValidationRaza;
@@ -11,6 +13,7 @@ import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Especie;
 import com.perruquera.backend.entities.Raza;
 
+@Service
 public class RazaService implements IRazaService {
 
     private final IRazaPersistence repo;

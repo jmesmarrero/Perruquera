@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.perruquera.backend.adapters.out.persistence.usuarioRol.IUsuarioRolPersistence;
 import com.perruquera.backend.business.validation.ValidationRol;
 import com.perruquera.backend.business.validation.ValidationUsuario;
@@ -12,6 +14,7 @@ import com.perruquera.backend.entities.Rol;
 import com.perruquera.backend.entities.Usuario;
 import com.perruquera.backend.entities.UsuarioRol;
 
+@Service
 public class UsuarioRolService implements IUsuarioRolService {
 
     private final IUsuarioRolPersistence repo;
