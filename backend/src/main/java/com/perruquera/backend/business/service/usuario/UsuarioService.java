@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.perruquera.backend.adapters.in.usuario.api.UsuarioRequestDTO;
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
 import com.perruquera.backend.business.validation.ValidationUsuario;
 import com.perruquera.backend.business.validation.ValidationUtils;
@@ -113,6 +114,35 @@ public class UsuarioService implements IUsuarioService {
         }
 
         return repo.findByTelefono(telefono);
+    }
+
+    @Override
+    public Optional<Usuario> patch(Long id, UsuarioRequestDTO request) {
+        Optional<Usuario> usuarioOpt = repo.findById(id);
+
+        if (usuarioOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Usuario usuario = usuarioOpt.get();
+
+        if (request.getNombre() != null) {
+            usuario.setNombre(request.getNombre());
+        }
+
+        if (request.getApellidos() != null) {
+            usuario.setApellidos(request.getApellidos());
+        }
+
+        if (request.getTelefono() != null) {
+            usuario.setTelefono(request.getTelefono());
+        }
+
+        if (request.getEmail() != null) {
+            usuario.setEmail(request.getEmail());
+        }
+
+        return Optional.of(repo.save(usuario));
     }
 
 }

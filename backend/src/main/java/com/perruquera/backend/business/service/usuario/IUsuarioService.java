@@ -3,6 +3,7 @@ package com.perruquera.backend.business.service.usuario;
 import java.util.List;
 import java.util.Optional;
 
+import com.perruquera.backend.adapters.in.usuario.api.UsuarioRequestDTO;
 import com.perruquera.backend.entities.Usuario;
 
 public interface IUsuarioService {
@@ -86,5 +87,7 @@ public interface IUsuarioService {
      * @return usuario encontrado por su telefono
      */
     Optional<Usuario> findByTelefono(String telefono);
+
+    Optional<Usuario> patch(Long id, UsuarioRequestDTO request);
 
 }
