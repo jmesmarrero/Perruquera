@@ -76,12 +76,14 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    @Operation(summary = "Update usuario(partial)")
+    @Operation(summary = "Update usuario (partial)")
     public ResponseEntity<UsuarioResponseDTO> patch(
             @PathVariable Long id,
             @RequestBody UsuarioRequestDTO request) {
 
-        return service.patch(id, request)
+        Usuario usuario = mapper.toDomain(request);
+
+        return service.patch(id, usuario)
                 .map(mapper::toResponseDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.rol.IRolPersistence;
 import com.perruquera.backend.business.validation.ValidationRol;
+import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Rol;
-
 
 @Service
 public class RolService implements IRolService {
@@ -26,7 +26,7 @@ public class RolService implements IRolService {
             return null;
         }
 
-        //.isPresent para no guardar dos roles iguales
+        // .isPresent para no guardar dos roles iguales
         // 1. ADMIN - 3. ADMIN (nuevamente)
         if (repo.findByNombre(rol.getNombre()).isPresent()) {
             return null;
@@ -38,38 +38,87 @@ public class RolService implements IRolService {
 
     @Override
     public Optional<Rol> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        return repo.findById(id);
     }
 
     @Override
     public List<Rol> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return repo.findAll();
     }
 
     @Override
     public Optional<Rol> update(Long id, Rol rol) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        if (!ValidationRol.isValidRol(rol)) {
+            return Optional.empty();
+        }
+
+        if (!repo.existsById(id)) {
+            return Optional.empty();
+        }
+
+        rol.setId(id);
+
+        return Optional.of(repo.save(rol));
     }
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        if (id == null) {
+            return;
+        }
+
+        if (!repo.existsById(id)) {
+            return;
+        }
+
+        repo.deleteById(id);
     }
 
     @Override
     public boolean existsById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        if (id == null) {
+            return false;
+        }
+
+        return repo.existsById(id);
     }
 
     @Override
     public Optional<Rol> findByNombre(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByNombre'");
+        if (!ValidationUtils.isValidNombre(nombre)) {
+            return Optional.empty();
+        }
+
+        return repo.findByNombre(nombre);
+    }
+
+    @Override
+    public Optional<Rol> patch(Long id, Rol rol) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Rol> rolOpt = repo.findById(id);
+
+        if (rolOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Rol rolExistente = rolOpt.get();
+
+        if (rol.getNombre() != null) {
+            rolExistente.setNombre(rol.getNombre());
+        }
+
+        return Optional.of(repo.save(rolExistente));
     }
 
 }

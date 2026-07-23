@@ -88,6 +88,6 @@ public interface IUsuarioService {
      */
     Optional<Usuario> findByTelefono(String telefono);
 
-    Optional<Usuario> patch(Long id, UsuarioRequestDTO request);
+    Optional<Usuario> patch(Long id, Usuario usuario);
 
 }
