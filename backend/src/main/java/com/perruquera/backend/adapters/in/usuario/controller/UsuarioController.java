@@ -90,6 +90,10 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete usuario")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+
+        if (!service.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
