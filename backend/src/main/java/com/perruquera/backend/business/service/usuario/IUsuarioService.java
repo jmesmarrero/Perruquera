@@ -3,7 +3,6 @@ package com.perruquera.backend.business.service.usuario;
 import java.util.List;
 import java.util.Optional;
 
-import com.perruquera.backend.adapters.in.usuario.api.UsuarioRequestDTO;
 import com.perruquera.backend.entities.Usuario;
 
 public interface IUsuarioService {
@@ -88,6 +87,12 @@ public interface IUsuarioService {
      */
     Optional<Usuario> findByTelefono(String telefono);
 
+    /**
+     * Funcion para actulizar parcialmente un usuario existente
+     * @param id identificador unico de usuario
+     * @param usuario objeto del usuarui(campo) que se quiere actualizar 
+     * @return usuario actualizado si existe.
+     */
     Optional<Usuario> patch(Long id, Usuario usuario);
 
 }
