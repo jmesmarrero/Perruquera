@@ -105,6 +105,10 @@ public class RolService implements IRolService {
         if (id == null) {
             return Optional.empty();
         }
+        
+        if (repo.findByNombre(rol.getNombre()).isPresent()) {
+            return Optional.empty();
+        }
 
         Optional<Rol> rolOpt = repo.findById(id);
 

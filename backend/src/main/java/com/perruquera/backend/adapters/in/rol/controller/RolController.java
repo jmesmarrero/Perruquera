@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("api/roles")
+@RequestMapping("/api/roles")
 @Tag(name = "Rol API")
 @CrossOrigin
 public class RolController {
