@@ -9,7 +9,8 @@ import com.perruquera.backend.entities.Raza;
 public interface IRazaService {
 
     /**
-     * Funcion para crear un nuevo raza 
+     * Funcion para crear un nuevo raza
+     * 
      * @param raza raza que se quiere crear
      * @return raza creado
      */
@@ -17,6 +18,7 @@ public interface IRazaService {
 
     /**
      * Funcion para encontrar el raza por su id
+     * 
      * @param id identificador unico de la clase
      * @return raza encontrado por el id
      */
@@ -24,26 +26,30 @@ public interface IRazaService {
 
     /**
      * Funcion para buscar todos los razaes
+     * 
      * @return lista con todos los razaes
      */
     List<Raza> findAll();
 
     /**
      * Funcion para actualizar el raza por su id
-     * @param id identificador unico de la clase
-     * @param raza raza asignado 
+     * 
+     * @param id   identificador unico de la clase
+     * @param raza raza asignado
      * @return raza actualizado
      */
     Optional<Raza> update(Long id, Raza raza);
-    
+
     /**
      * Funcion para eliminar el raza por su id
+     * 
      * @param id identificador unico de la clase
      */
     void deleteById(Long id);
 
     /**
      * Funcion para comprobar si existe
+     * 
      * @param id identificador unico de la clase
      * @return true si existe or false si no existe
      */
@@ -73,5 +79,14 @@ public interface IRazaService {
      * @return devuelve la raza opr su especie y nombre
      */
     Optional<Raza> findByEspecieAndNombre(Especie especie, String nombre);
+
+    /**
+     * Actualiza parcialmente una raza.
+     *
+     * @param id   identificador único de la raza
+     * @param raza raza con los campos a modificar
+     * @return raza actualizada si existe; Optional.empty() en caso contrario
+     */
+    Optional<Raza> patch(Long id, Raza raza);
 
 }

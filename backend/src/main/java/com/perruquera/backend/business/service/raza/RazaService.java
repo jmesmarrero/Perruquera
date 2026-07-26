@@ -109,4 +109,29 @@ public class RazaService implements IRazaService {
 
     }
 
+    @Override
+    public Optional<Raza> patch(Long id, Raza raza) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Raza> razaOpt = repo.findById(id);
+
+        if (razaOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Raza razaExistente = razaOpt.get();
+
+        if (raza.getNombre() != null) {
+            razaExistente.setNombre(raza.getNombre());
+        }
+
+        if (raza.getEspecie() != null) {
+            razaExistente.setEspecie(raza.getEspecie());
+        }
+
+        return Optional.of(repo.save(razaExistente));
+    }
+
 }
