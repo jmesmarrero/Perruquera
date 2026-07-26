@@ -87,4 +87,33 @@ public class EspecieService implements IEspecieService {
         return repo.findByNombre(nombre);
     }
 
+    @Override
+    public Optional<Especie> patch(Long id, Especie especie) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Especie> especieOpt = repo.findById(id);
+
+        if (especieOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Especie especieExistente = especieOpt.get();
+
+        if (especie.getNombre() != null) {
+
+            Optional<Especie> especieConNombre = repo.findByNombre(especie.getNombre());
+
+            if (especieConNombre.isPresent()
+                    && !especieConNombre.get().getId().equals(id)) {
+                return Optional.empty();
+            }
+
+            especieExistente.setNombre(especie.getNombre());
+        }
+
+        return Optional.of(repo.save(especieExistente));
+    }
+
 }

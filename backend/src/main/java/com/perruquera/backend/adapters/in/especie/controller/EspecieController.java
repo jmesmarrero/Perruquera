@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,5 +73,25 @@ public class EspecieController {
 
         return service.update(id, especie).map(mapper::toResponse).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    @Operation(summary = "Update especie(Partial)")
+    public ResponseEntity<EspecieResponseDTO> patch(@PathVariable Long id, @RequestBody EspecieRequestDTO request) {
+
+        Especie especie = mapper.toDomain(request);
+
+        return service.patch(id, especie).map(mapper::toResponse).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete by id")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (!service.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
