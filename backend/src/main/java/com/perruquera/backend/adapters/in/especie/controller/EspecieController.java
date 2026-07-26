@@ -16,7 +16,7 @@ import com.perruquera.backend.business.service.especie.IEspecieService;
 import com.perruquera.backend.entities.Especie;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/especies")
-@Tag(name = "Rol API")
+@Tag(name = "Especie API")
 @CrossOrigin
 public class EspecieController {
 
@@ -86,7 +86,7 @@ public class EspecieController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete by id")
+    @Operation(summary = "Delete especie")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!service.existsById(id)) {
             return ResponseEntity.notFound().build();
