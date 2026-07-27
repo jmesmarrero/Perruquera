@@ -92,4 +92,37 @@ public class ServicioService implements IServicioService {
         return repo.findByActivoTrue();
     }
 
+    @Override
+    public Optional<Servicio> patch(Long id, Servicio servicio) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Servicio> servicioOpt = repo.findById(id);
+
+        if (servicioOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Servicio servicioExistente = servicioOpt.get();
+
+        if (servicio.getNombre() != null) {
+            servicioExistente.setNombre(servicio.getNombre());
+        }
+
+        if (servicio.getDescripcion() != null) {
+            servicioExistente.setDescripcion(servicio.getDescripcion());
+        }
+
+        if (servicio.getPrecio() != null) {
+            servicioExistente.setPrecio(servicio.getPrecio());
+        }
+
+        if (servicio.getDuracionEstimada() > 0) {
+            servicioExistente.setDuracionEstimada(servicio.getDuracionEstimada());
+        }
+
+        return Optional.of(repo.save(servicioExistente));
+    }
+
 }

@@ -7,8 +7,9 @@ import com.perruquera.backend.entities.Servicio;
 
 public interface IServicioService {
 
-     /**
-     * Funcion para crear un nuevo Servicio 
+    /**
+     * Funcion para crear un nuevo Servicio
+     * 
      * @param servicio Servicio que se quiere crear
      * @return Servicio creado
      */
@@ -16,6 +17,7 @@ public interface IServicioService {
 
     /**
      * Funcion para encontrar el Servicio por su id
+     * 
      * @param id identificador unico de la clase
      * @return Servicio encontrado por el id
      */
@@ -23,26 +25,30 @@ public interface IServicioService {
 
     /**
      * Funcion para buscar todos los Servicioes
+     * 
      * @return lista con todos los Servicioes
      */
     List<Servicio> findAll();
 
     /**
      * Funcion para actualizar el Servicio por su id
-     * @param id identificador unico de la clase
-     * @param servicio Servicio asignado 
+     * 
+     * @param id       identificador unico de la clase
+     * @param servicio Servicio asignado
      * @return Servicio actualizado
      */
     Optional<Servicio> update(Long id, Servicio servicio);
-    
+
     /**
      * Funcion para eliminar el Servicio por su id
+     * 
      * @param id identificador unico de la clase
      */
     void deleteById(Long id);
 
     /**
      * Funcion para comprobar si existe
+     * 
      * @param id identificador unico de la clase
      * @return true si existe or false si no existe
      */
@@ -58,8 +64,20 @@ public interface IServicioService {
 
     /**
      * Funcion para encontrar servicios activos
+     * 
      * @return lista de servicios activos
      */
     List<Servicio> findByActivoTrue();
+
+    /**
+     * Actualiza parcialmente un servicio por su identificador.
+     * Solo se modificarán los atributos que tengan un valor distinto de null
+     * (o válido en el caso de tipos primitivos).
+     *
+     * @param id       identificador único del servicio
+     * @param servicio servicio con los datos a actualizar
+     * @return servicio actualizado si existe; Optional.empty() en caso contrario
+     */
+    Optional<Servicio> patch(Long id, Servicio servicio);
 
 }
