@@ -45,6 +45,8 @@ public class Mascota {
 
     private String observaciones;
 
+    private boolean activo = true;
+
     public Mascota() {
     }
 
@@ -53,7 +55,7 @@ public class Mascota {
     }
 
     public Mascota(Long id, Usuario usuario, Raza raza, String nombre, Genero genero, LocalDate fechaNacimiento,
-            BigDecimal peso, String fotoUrl, String observaciones) {
+            BigDecimal peso, String fotoUrl, String observaciones, boolean activo) {
         this.id = id;
         this.usuario = usuario;
         this.raza = raza;
@@ -63,6 +65,7 @@ public class Mascota {
         this.peso = peso;
         this.fotoUrl = fotoUrl;
         this.observaciones = observaciones;
+        this.activo = activo;
     }
 
     public Long getId() {
@@ -137,12 +140,20 @@ public class Mascota {
         this.observaciones = observaciones;
     }
 
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
     @Override
     public String toString() {
         return "Mascota [id=" + id + ", usuarioId=" + (usuario != null ? usuario.getId() : null) + ", razaId="
                 + (raza != null ? raza.getId() : null) + ", nombre=" + nombre + ", genero="
                 + genero + ", fechaNacimiento=" + fechaNacimiento + ", peso=" + peso + ", fotoUrl=" + fotoUrl
-                + ", observaciones=" + observaciones + "]";
+                + ", observaciones=" + observaciones + ", activo=" + activo + "]";
     }
 
     @Override

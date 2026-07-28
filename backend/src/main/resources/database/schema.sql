@@ -100,6 +100,7 @@ CREATE TABLE mascota(
     peso DECIMAL(5,2) NOT NULL CHECK (peso > 0),
     foto_url VARCHAR(2048) NOT NULL,
     observaciones TEXT,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
     FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE RESTRICT,
     FOREIGN KEY (id_raza) REFERENCES raza(id) ON DELETE RESTRICT
 );
