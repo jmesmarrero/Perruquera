@@ -124,4 +124,49 @@ public class CitaService implements ICitaService {
         return repo.findByEstadoOrderByFechaHoraAsc(estado);
     }
 
+    @Override
+    public Optional<Cita> patch(Long id, Cita cita) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Cita> citaOpt = repo.findById(id);
+
+        if (citaOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Cita citaExistente = citaOpt.get();
+
+        if (cita.getMascota() != null) {
+            citaExistente.setMascota(cita.getMascota());
+        }
+
+        if (cita.getEstado() != null) {
+            citaExistente.setEstado(cita.getEstado());
+        }
+
+        if (cita.getFechaHora() != null) {
+            citaExistente.setFechaHora(cita.getFechaHora());
+        }
+
+        if (cita.getDuracionEstimada() != 0) {
+            citaExistente.setDuracionEstimada(cita.getDuracionEstimada());
+        }
+
+        if (cita.getPrecioTotal() != null) {
+            citaExistente.setPrecioTotal(cita.getPrecioTotal());
+        }
+
+        if (cita.getFechaCreacion() != null) {
+            citaExistente.setFechaCreacion(cita.getFechaCreacion());
+        }
+
+        if (cita.getObservaciones() != null) {
+            citaExistente.setObservaciones(cita.getObservaciones());
+        }
+
+        return Optional.of(repo.save(citaExistente));
+    }
+
 }
