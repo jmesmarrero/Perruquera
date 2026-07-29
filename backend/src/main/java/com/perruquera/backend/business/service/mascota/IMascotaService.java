@@ -80,4 +80,13 @@ public interface IMascotaService {
      */
     Optional<Mascota> findByUsuarioAndNombre(Usuario usuario, String nombre);
 
+    /**
+     * Actualiza parcialmente una mascota.
+     *
+     * @param id      identificador único de la mascota
+     * @param mascota datos a modificar
+     * @return mascota actualizada si existe
+     */
+    Optional<Mascota> patch(Long id, Mascota mascota);
+
 }

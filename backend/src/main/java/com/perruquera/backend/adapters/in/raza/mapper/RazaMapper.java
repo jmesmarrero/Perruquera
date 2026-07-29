@@ -11,15 +11,19 @@ import com.perruquera.backend.entities.Raza;
 @Mapper(componentModel = "spring")
 public interface RazaMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "especie", source = "especieId")
-    Raza toDomain(RazaRequestDTO dto);
+    Raza toDomain(RazaRequestDTO requestDTO);
+
+    @Mapping(target = "especieId", source = "especie.id")
+    @Mapping(target = "especieNombre", source = "especie.nombre")
+    RazaResponseDTO toResponseDTO(Raza raza);
 
     default Especie map(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return new Especie(id);
+        return id == null ? null : new Especie(id);
     }
 
-    RazaResponseDTO toResponse(Raza raza);
+    default Long map(Especie especie) {
+        return especie == null ? null : especie.getId();
+    }
 }

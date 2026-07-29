@@ -110,4 +110,53 @@ public class MascotaService implements IMascotaService {
         return repo.findByUsuarioAndNombre(usuario, nombre);
     }
 
+    @Override
+    public Optional<Mascota> patch(Long id, Mascota mascota) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        Optional<Mascota> mascotaOpt = repo.findById(id);
+
+        if (mascotaOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Mascota mascotaExistente = mascotaOpt.get();
+
+        if (mascota.getUsuario() != null) {
+            mascotaExistente.setUsuario(mascota.getUsuario());
+        }
+
+        if (mascota.getRaza() != null) {
+            mascotaExistente.setRaza(mascota.getRaza());
+        }
+
+        if (mascota.getNombre() != null) {
+            mascotaExistente.setNombre(mascota.getNombre());
+        }
+
+        if (mascota.getGenero() != null) {
+            mascotaExistente.setGenero(mascota.getGenero());
+        }
+
+        if (mascota.getFechaNacimiento() != null) {
+            mascotaExistente.setFechaNacimiento(mascota.getFechaNacimiento());
+        }
+
+        if (mascota.getPeso() != null) {
+            mascotaExistente.setPeso(mascota.getPeso());
+        }
+
+        if (mascota.getFotoUrl() != null) {
+            mascotaExistente.setFotoUrl(mascota.getFotoUrl());
+        }
+
+        if (mascota.getObservaciones() != null) {
+            mascotaExistente.setObservaciones(mascota.getObservaciones());
+        }
+
+        return Optional.of(repo.save(mascotaExistente));
+    }
+
 }
