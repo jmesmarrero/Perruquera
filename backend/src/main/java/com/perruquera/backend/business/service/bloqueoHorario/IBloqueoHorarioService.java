@@ -10,7 +10,8 @@ import com.perruquera.backend.entities.Usuario;
 public interface IBloqueoHorarioService {
 
     /**
-     * Funcion para crear un nuevo bloqueoHorario 
+     * Funcion para crear un nuevo bloqueoHorario
+     * 
      * @param bloqueoHorario bloqueoHorario que se quiere crear
      * @return bloqueoHorario creado
      */
@@ -18,6 +19,7 @@ public interface IBloqueoHorarioService {
 
     /**
      * Funcion para encontrar el bloqueoHorario por su id
+     * 
      * @param id identificador unico de la clase
      * @return bloqueoHorario encontrado por el id
      */
@@ -25,26 +27,30 @@ public interface IBloqueoHorarioService {
 
     /**
      * Funcion para buscar todos los bloqueoHorarioes
+     * 
      * @return lista con todos los bloqueoHorarioes
      */
     List<BloqueoHorario> findAll();
 
     /**
      * Funcion para actualizar el bloqueoHorario por su id
-     * @param id identificador unico de la clase
-     * @param bloqueoHorario bloqueoHorario asignado 
+     * 
+     * @param id             identificador unico de la clase
+     * @param bloqueoHorario bloqueoHorario asignado
      * @return bloqueoHorario actualizado
      */
     Optional<BloqueoHorario> update(Long id, BloqueoHorario bloqueoHorario);
-    
+
     /**
      * Funcion para eliminar el bloqueoHorario por su id
+     * 
      * @param id identificador unico de la clase
      */
     void deleteById(Long id);
 
     /**
      * Funcion para comprobar si existe
+     * 
      * @param id identificador unico de la clase
      * @return true si existe or false si no existe
      */
@@ -79,7 +85,7 @@ public interface IBloqueoHorarioService {
      * comprobar si el profesional tiene algún bloqueo ese día.
      *
      * @param usuario usuario propietario del bloqueo.
-     * @param fecha fecha a consultar.
+     * @param fecha   fecha a consultar.
      * @return lista de bloqueos del usuario para esa fecha.
      */
     List<BloqueoHorario> findByUsuarioAndFecha(Usuario usuario, LocalDate fecha);
@@ -102,8 +108,17 @@ public interface IBloqueoHorarioService {
      * profesional antes de crear una nueva cita.
      *
      * @param usuario usuario propietario del bloqueo.
-     * @param fecha fecha a consultar.
+     * @param fecha   fecha a consultar.
      * @return lista de bloqueos activos para esa fecha.
      */
     List<BloqueoHorario> findByUsuarioAndFechaAndActivoTrue(Usuario usuario, LocalDate fecha);
+
+    /**
+     * Actualiza parcialmente un bloqueo horario existente.
+     *
+     * @param id             identificador del bloqueo horario.
+     * @param bloqueoHorario entidad con los campos a modificar.
+     * @return Optional con el bloqueo horario actualizado o vacío si no existe.
+     */
+    Optional<BloqueoHorario> patch(Long id, BloqueoHorario bloqueoHorario);
 }
