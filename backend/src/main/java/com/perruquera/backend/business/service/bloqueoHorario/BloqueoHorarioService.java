@@ -15,7 +15,6 @@ import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.BloqueoHorario;
 import com.perruquera.backend.entities.Usuario;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class BloqueoHorarioService implements IBloqueoHorarioService {
