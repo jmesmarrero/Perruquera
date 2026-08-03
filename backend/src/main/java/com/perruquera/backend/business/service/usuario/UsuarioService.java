@@ -64,6 +64,9 @@ public class UsuarioService implements IUsuarioService {
         }
         usuario.setId(id);
 
+        usuario.setPasswordHash(
+                passwordEncoder.encode(usuario.getPasswordHash()));
+
         return Optional.of(repo.save(usuario));
     }
 
