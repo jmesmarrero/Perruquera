@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -24,7 +24,9 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(httpBasic -> httpBasic.disable()).formLogin(form -> form.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/api/usuarios")
+                        .permitAll()
                         .anyRequest().authenticated());
         return http.build();
     }
@@ -32,6 +34,8 @@ public class SecurityConfig {
 // Stateless -> no crees peticiones - No guardes información de los usuarios
 // entre peticiones
 
-//Eliminas dos sistemas de autenticación que Spring trae por defecto con disable y ponemos las nuestras
-// .httpBasic(httpBasic -> httpBasic.disable()) - abrir una ventana emergente de usuario/contraseña
+// Eliminas dos sistemas de autenticación que Spring trae por defecto con
+// disable y ponemos las nuestras
+// .httpBasic(httpBasic -> httpBasic.disable()) - abrir una ventana emergente de
+// usuario/contraseña
 // .formLogin(form -> form.disable()) - mostrar una página HTML de login

@@ -16,8 +16,7 @@ public class ValidationUsuario {
                 && ValidationUtils.isValidApellido(usuario.getApellidos())
                 && ValidationUtils.isValidTelefono(usuario.getTelefono())
                 && ValidationUtils.isValidEmail(usuario.getEmail())
-                && ValidationUtils.isValidPassword(usuario.getPasswordHash())
-                && ValidationUtils.isValidFechaHora(usuario.getFechaRegistro());
+                && ValidationUtils.isValidPassword(usuario.getPasswordHash());
 
     }
 

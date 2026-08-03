@@ -1,5 +1,6 @@
 package com.perruquera.backend.business.service.usuario;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,8 @@ public class UsuarioService implements IUsuarioService {
         if (repo.existsByEmail(usuario.getEmail())) {
             return null;
         }
+
+        usuario.setFechaRegistro(LocalDateTime.now());
         usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
         return repo.save(usuario);
     }
