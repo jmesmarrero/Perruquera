@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
@@ -15,9 +16,11 @@ import com.perruquera.backend.entities.Usuario;
 public class UsuarioService implements IUsuarioService {
 
     private final IUsuarioPersistence repo;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(IUsuarioPersistence repo) {
+    public UsuarioService(IUsuarioPersistence repo, PasswordEncoder passwordEncoder) {
         this.repo = repo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,6 +31,7 @@ public class UsuarioService implements IUsuarioService {
         if (repo.existsByEmail(usuario.getEmail())) {
             return null;
         }
+        usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
         return repo.save(usuario);
     }
 
