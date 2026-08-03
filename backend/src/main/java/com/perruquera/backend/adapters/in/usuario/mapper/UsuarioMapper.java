@@ -11,7 +11,7 @@ import com.perruquera.backend.entities.Usuario;
 public interface UsuarioMapper {
 
     @Mapping(target = "id", ignore = true) //generado por la base de datos.
-    @Mapping(target = "passwordHash", ignore = true) //generado a partir de password.
+    @Mapping(target = "passwordHash", source = "password") //generado a partir de password.
     @Mapping(target = "fechaRegistro", ignore = true) // asignado automáticamente.
     @Mapping(target = "activo", ignore = true)// valor por defecto.
     // lo de arriba para que el toDomain lo ignore porque MapStruct simplemente te
