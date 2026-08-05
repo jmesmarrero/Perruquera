@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.in.auth.api.LoginRequestDTO;
+import com.perruquera.backend.adapters.in.auth.api.LoginResponseDTO;
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
 import com.perruquera.backend.entities.Usuario;
 
@@ -24,7 +25,7 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public String login(LoginRequestDTO request) {
+    public LoginResponseDTO login(LoginRequestDTO request) {
 
         Optional<Usuario> usuarioOpt = usuarioPersistence.findByEmail(request.getEmail());
 
@@ -44,7 +45,7 @@ public class AuthService implements IAuthService {
             throw new RuntimeException("Credenciales incorrectas");
         }
 
-        return jwtService.generateToken(usuario);
+        return new LoginResponseDTO(jwtService.generateToken(usuario));
     }
 
 }

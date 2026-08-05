@@ -1,6 +1,7 @@
 package com.perruquera.backend.business.service.auth;
 
 import com.perruquera.backend.adapters.in.auth.api.LoginRequestDTO;
+import com.perruquera.backend.adapters.in.auth.api.LoginResponseDTO;
 
 public interface IAuthService {
 
@@ -10,6 +11,6 @@ public interface IAuthService {
      * @param request datos de acceso del usuario.
      * @return token JWT generado tras una autenticación correcta.
      */
-    String login(LoginRequestDTO request);
+    LoginResponseDTO login(LoginRequestDTO request);
 
 }

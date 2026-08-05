@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "Login de usuario")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request) {
 
         return ResponseEntity.ok(service.login(request));
 
