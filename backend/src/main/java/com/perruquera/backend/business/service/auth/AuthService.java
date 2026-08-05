@@ -14,10 +14,13 @@ public class AuthService implements IAuthService {
 
     private final PasswordEncoder passwordEncoder;
     private final IUsuarioPersistence usuarioPersistence;
+    private final IJwtService jwtService;
 
-    public AuthService(PasswordEncoder passwordEncoder, IUsuarioPersistence usuarioPersistence) {
+    public AuthService(PasswordEncoder passwordEncoder, IUsuarioPersistence usuarioPersistence,
+            IJwtService jwtService) {
         this.passwordEncoder = passwordEncoder;
         this.usuarioPersistence = usuarioPersistence;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class AuthService implements IAuthService {
 
         Optional<Usuario> usuarioOpt = usuarioPersistence.findByEmail(request.getEmail());
 
-        if (!usuarioOpt.isEmpty()) {
+        if (usuarioOpt.isEmpty()) {
             throw new RuntimeException("Credenciales incorrectas");
         }
 
@@ -41,7 +44,7 @@ public class AuthService implements IAuthService {
             throw new RuntimeException("Credenciales incorrectas");
         }
 
-        return "LOGIN CORRECTO";
+        return jwtService.generateToken(usuario);
     }
 
 }
