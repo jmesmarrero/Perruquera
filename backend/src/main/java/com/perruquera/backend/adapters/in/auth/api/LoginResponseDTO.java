@@ -33,6 +33,4 @@ public class LoginResponseDTO {
         this.tipo = tipo;
     }
 
-    
-
 }

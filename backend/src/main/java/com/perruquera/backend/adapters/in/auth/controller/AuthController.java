@@ -1,6 +1,6 @@
 package com.perruquera.backend.adapters.in.auth.controller;
 
-import org.apache.catalina.connector.Response;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import com.perruquera.backend.adapters.in.auth.api.LoginResponseDTO;
 import com.perruquera.backend.business.service.auth.IAuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -23,17 +23,16 @@ public class AuthController {
 
     private final IAuthService service;
 
-    public AuthController(IAuthService service){
+    public AuthController(IAuthService service) {
         this.service = service;
     }
 
     @PostMapping("/login")
-    @Operation(summary ="Login de usuario")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request){
+    @Operation(summary = "Login de usuario")
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO request) {
 
-        return ResponseEntity.ok().build();
-        
+        return ResponseEntity.ok(service.login(request));
+
     }
-
 
 }
