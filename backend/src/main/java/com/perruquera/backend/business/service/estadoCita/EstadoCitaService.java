@@ -10,7 +10,6 @@ import com.perruquera.backend.business.validation.ValidationEstadoCita;
 import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.EstadoCita;
 
-
 @Service
 public class EstadoCitaService implements IEstadoCitaService {
 
@@ -25,7 +24,7 @@ public class EstadoCitaService implements IEstadoCitaService {
         if (!ValidationEstadoCita.isValidEstadoCita(estadoCita)) {
             return null;
         }
-        
+
         if (repo.findByNombre(estadoCita.getNombre()).isPresent()) {
             return null;
         }

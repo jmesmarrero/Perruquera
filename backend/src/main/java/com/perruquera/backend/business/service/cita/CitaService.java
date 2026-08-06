@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.cita.ICitaPersistence;
+import com.perruquera.backend.adapters.out.persistence.estadoCita.IEstadoCitaPersistence;
 import com.perruquera.backend.business.validation.ValidationCita;
 import com.perruquera.backend.business.validation.ValidationEstadoCita;
 import com.perruquera.backend.business.validation.ValidationMascota;
@@ -20,9 +21,11 @@ import com.perruquera.backend.entities.Mascota;
 public class CitaService implements ICitaService {
 
     private ICitaPersistence repo;
+    private final IEstadoCitaPersistence estadoCitaRepo;
 
-    public CitaService(ICitaPersistence repo) {
+    public CitaService(ICitaPersistence repo, IEstadoCitaPersistence estadoCitaRepo) {
         this.repo = repo;
+        this.estadoCitaRepo = estadoCitaRepo;
     }
 
     @Override
@@ -69,7 +72,14 @@ public class CitaService implements ICitaService {
         if (!existsById(id)) {
             return;
         }
-        repo.deleteById(id);
+        Cita cita = repo.findById(id).get();
+
+        EstadoCita cancelada = estadoCitaRepo.findByNombre("Cancelada")
+                .orElseThrow(() -> new IllegalArgumentException("Estado no encontrado"));
+
+        cita.setEstado(cancelada);
+
+        repo.save(cita);
     }
 
     @Override

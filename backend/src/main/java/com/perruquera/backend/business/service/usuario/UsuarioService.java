@@ -21,7 +21,8 @@ public class UsuarioService implements IUsuarioService {
     private final PasswordEncoder passwordEncoder;
     private final IUsuarioRolService usuarioRolService;
 
-    public UsuarioService(IUsuarioPersistence repo, PasswordEncoder passwordEncoder, IUsuarioRolService usuarioRolService) {
+    public UsuarioService(IUsuarioPersistence repo, PasswordEncoder passwordEncoder,
+            IUsuarioRolService usuarioRolService) {
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
         this.usuarioRolService = usuarioRolService;
@@ -39,7 +40,7 @@ public class UsuarioService implements IUsuarioService {
         usuario.setFechaRegistro(LocalDateTime.now());
         usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
 
-        Usuario usuarioGuardado =  repo.save(usuario);
+        Usuario usuarioGuardado = repo.save(usuario);
         usuarioRolService.asignarRolCliente(usuarioGuardado);
 
         return usuarioGuardado;
@@ -88,6 +89,8 @@ public class UsuarioService implements IUsuarioService {
         if (!repo.existsById(id)) {
             return;
         }
+        Usuario usuario = repo.findById(id).get();
+        usuario.setActivo(false);
         repo.deleteById(id);
     }
 

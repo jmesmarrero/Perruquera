@@ -68,6 +68,10 @@ public class ServicioService implements IServicioService {
         if (!existsById(id)) {
             return;
         }
+
+        Servicio servicio = repo.findById(id).get();
+        servicio.setActivo(false);
+        
         repo.deleteById(id);
     }
 

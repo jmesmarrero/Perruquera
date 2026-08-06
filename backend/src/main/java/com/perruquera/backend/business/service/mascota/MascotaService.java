@@ -71,6 +71,9 @@ public class MascotaService implements IMascotaService {
         if (!existsById(id)) {
             return;
         }
+
+        Mascota mascota = repo.findById(id).get();
+        mascota.setActivo(false);
         repo.deleteById(id);
     }
 
