@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.perruquera.backend.adapters.out.persistence.rol.IRolPersistence;
 import com.perruquera.backend.adapters.out.persistence.usuarioRol.IUsuarioRolPersistence;
 import com.perruquera.backend.business.validation.ValidationRol;
 import com.perruquera.backend.business.validation.ValidationUsuario;
@@ -18,9 +19,11 @@ import com.perruquera.backend.entities.UsuarioRol;
 public class UsuarioRolService implements IUsuarioRolService {
 
     private final IUsuarioRolPersistence repo;
+    private final IRolPersistence rolPersistence;
 
-    public UsuarioRolService(IUsuarioRolPersistence repo) {
+    public UsuarioRolService(IUsuarioRolPersistence repo, IRolPersistence rolPersistence) {
         this.repo = repo;
+        this.rolPersistence = rolPersistence;
     }
 
     @Override
@@ -108,6 +111,18 @@ public class UsuarioRolService implements IUsuarioRolService {
             return Optional.empty();
         }
         return repo.findByUsuarioAndRol(usuario, rol);
+    }
+
+    @Override
+    public void asignarRolCliente(Usuario usuario) {
+        Rol rolCliente = rolPersistence.findByNombre("CLIENTE")
+                .orElseThrow(() -> new RuntimeException("el rol CLIENTE no existe"));
+
+        UsuarioRol usuarioRol = new UsuarioRol();
+        usuarioRol.setUsuario(usuario);
+        usuarioRol.setRol(rolCliente);
+
+        save(usuarioRol);
     }
 
 }

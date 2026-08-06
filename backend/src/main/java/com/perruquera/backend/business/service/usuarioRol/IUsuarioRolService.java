@@ -80,4 +80,11 @@ public interface IUsuarioRolService {
      * @return relacion usuario-rol encontrada si existe
      */
     Optional<UsuarioRol> findByUsuarioAndRol(Usuario usuario, Rol rol);
+
+    /**
+     * Funcion para asignar a usuario creado un rol
+     * @param usuario usuario que se crea
+     * @return
+     */
+    void asignarRolCliente(Usuario usuario);
 }
