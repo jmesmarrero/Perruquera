@@ -33,6 +33,10 @@ public class CitaService implements ICitaService {
         if (!ValidationCita.isValidCita(cita)) {
             return null;
         }
+        EstadoCita pendiente = estadoCitaRepo.findByNombre("Pendiente")
+                .orElseThrow(() -> new IllegalArgumentException("Estado no encontrado"));
+        cita.setEstado(pendiente);
+        cita.setFechaCreacion(LocalDateTime.now());
         return repo.save(cita);
     }
 

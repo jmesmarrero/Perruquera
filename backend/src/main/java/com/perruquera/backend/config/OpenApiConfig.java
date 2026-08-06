@@ -9,10 +9,9 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
-@OpenAPIDefinition(info = @Info(title = "La Perruquera API", version = "1.0"),
-security = {
+@OpenAPIDefinition(info = @Info(title = "La Perruquera API", version = "1.0.0", description = "API REST para la gestión de clientes, mascotas, citas y servicios de La Perruquera."), security = {
         @SecurityRequirement(name = "Bearer Authentication")
-    })
+})
 
 @SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 
