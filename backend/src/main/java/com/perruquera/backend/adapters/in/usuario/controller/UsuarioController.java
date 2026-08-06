@@ -1,6 +1,8 @@
 package com.perruquera.backend.adapters.in.usuario.controller;
 
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +11,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.perruquera.backend.adapters.in.usuario.api.CambiarRolRequestDTO;
 import com.perruquera.backend.adapters.in.usuario.api.UsuarioRequestDTO;
 import com.perruquera.backend.adapters.in.usuario.api.UsuarioResponseDTO;
 import com.perruquera.backend.adapters.in.usuario.mapper.UsuarioMapper;
 import com.perruquera.backend.business.service.usuario.IUsuarioService;
+import com.perruquera.backend.business.service.usuarioRol.IUsuarioRolService;
 import com.perruquera.backend.entities.Usuario;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,10 +36,12 @@ public class UsuarioController {
 
     private final IUsuarioService service;
     private final UsuarioMapper mapper;
+    private final IUsuarioRolService usuarioRolService;
 
-    public UsuarioController(IUsuarioService service, UsuarioMapper mapper) {
+    public UsuarioController(IUsuarioService service, UsuarioMapper mapper, IUsuarioRolService usuarioRolService) {
         this.service = service;
         this.mapper = mapper;
+        this.usuarioRolService = usuarioRolService;
     }
 
     @GetMapping
@@ -87,6 +93,19 @@ public class UsuarioController {
                 .map(mapper::toResponseDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/rol")
+    @Operation(summary = "Change rol de usuario")
+    public ResponseEntity<Void> cambiarRol(@PathVariable Long id, @RequestBody CambiarRolRequestDTO request){
+        Optional<Usuario> usuarioOpt = service.findById(id);
+
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Usuario usuario = usuarioOpt.get();
+        usuarioRolService.cambiarRol(usuario, request.getRol());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

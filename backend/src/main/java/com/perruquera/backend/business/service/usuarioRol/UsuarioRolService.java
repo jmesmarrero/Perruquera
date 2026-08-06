@@ -151,6 +151,7 @@ public class UsuarioRolService implements IUsuarioRolService {
 
         Rol rolNuevo = rolPersistence.findByNombre(nombreRol)
                 .orElseThrow(() -> new RuntimeException("El rol " + nombreRol + " no existe"));
+                
         UsuarioRol usuarioRol = usuarioRoles.get(0);
         usuarioRol.setRol(rolNuevo);
         repo.save(usuarioRol);
