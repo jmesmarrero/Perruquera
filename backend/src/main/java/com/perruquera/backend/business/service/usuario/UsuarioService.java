@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.usuario.IUsuarioPersistence;
+import com.perruquera.backend.business.service.usuarioRol.IUsuarioRolService;
 import com.perruquera.backend.business.validation.ValidationUsuario;
 import com.perruquera.backend.business.validation.ValidationUtils;
 import com.perruquera.backend.entities.Usuario;
@@ -18,10 +19,12 @@ public class UsuarioService implements IUsuarioService {
 
     private final IUsuarioPersistence repo;
     private final PasswordEncoder passwordEncoder;
+    private final IUsuarioRolService usuarioRolService;
 
-    public UsuarioService(IUsuarioPersistence repo, PasswordEncoder passwordEncoder) {
+    public UsuarioService(IUsuarioPersistence repo, PasswordEncoder passwordEncoder, IUsuarioRolService usuarioRolService) {
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
+        this.usuarioRolService = usuarioRolService;
     }
 
     @Override
@@ -35,7 +38,11 @@ public class UsuarioService implements IUsuarioService {
 
         usuario.setFechaRegistro(LocalDateTime.now());
         usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
-        return repo.save(usuario);
+
+        Usuario usuarioGuardado =  repo.save(usuario);
+        usuarioRolService.asignarRolCliente(usuarioGuardado);
+
+        return usuarioGuardado;
     }
 
     @Override
