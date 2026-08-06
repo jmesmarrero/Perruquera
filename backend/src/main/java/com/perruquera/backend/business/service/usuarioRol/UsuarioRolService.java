@@ -114,15 +114,46 @@ public class UsuarioRolService implements IUsuarioRolService {
     }
 
     @Override
-    public void asignarRolCliente(Usuario usuario) {
-        Rol rolCliente = rolPersistence.findByNombre("CLIENTE")
-                .orElseThrow(() -> new RuntimeException("el rol CLIENTE no existe"));
+    public void asignarRol(Usuario usuario, String nombreRol) {
+        Rol rol = rolPersistence.findByNombre(nombreRol)
+                .orElseThrow(() -> new RuntimeException("El rol " + nombreRol + " no existe"));
 
         UsuarioRol usuarioRol = new UsuarioRol();
         usuarioRol.setUsuario(usuario);
-        usuarioRol.setRol(rolCliente);
+        usuarioRol.setRol(rol);
 
         save(usuarioRol);
+    }
+
+    @Override
+    public void asignarRolCliente(Usuario usuario) {
+        asignarRol(usuario, "CLIENTE");
+    }
+
+    @Override
+    public void asignarRolEmpleado(Usuario usuario) {
+        asignarRol(usuario, "EMPLEADA");
+    }
+
+    @Override
+    public void asignarRolAdmin(Usuario usuario) {
+        asignarRol(usuario, "ADMIN");
+    }
+
+    @Override
+    public void cambiarRol(Usuario usuario, String nombreRol) {
+
+        List<UsuarioRol> usuarioRoles = repo.findByUsuario(usuario);
+
+        if (usuarioRoles.isEmpty()) {
+            throw new RuntimeException("El usuario no tiene ningun rol asignado");
+        }
+
+        Rol rolNuevo = rolPersistence.findByNombre(nombreRol)
+                .orElseThrow(() -> new RuntimeException("El rol " + nombreRol + " no existe"));
+        UsuarioRol usuarioRol = usuarioRoles.get(0);
+        usuarioRol.setRol(rolNuevo);
+        repo.save(usuarioRol);
     }
 
 }

@@ -81,10 +81,34 @@ public interface IUsuarioRolService {
      */
     Optional<UsuarioRol> findByUsuarioAndRol(Usuario usuario, Rol rol);
 
+    void asignarRol(Usuario usuario, String nombreRol);
+
     /**
      * Funcion para asignar a usuario creado un rol
      * @param usuario usuario que se crea
-     * @return
+     * @return Asigna el rol Cleinte a un usuario.
      */
     void asignarRolCliente(Usuario usuario);
+
+    /**
+     * Funcion para asignar a usuario creado un rol
+     * @param usuario usuario que se crea
+     * @return Asigna el rol EMPLEADA a un usuario.
+     */
+    void asignarRolEmpleado(Usuario usuario);
+
+    /**
+     * Funcion para asignar a usuario creado un rol
+     * @param usuario usuario que se crea
+     * @return Asigna el rol ADMIN a un usuario.
+     */
+    void asignarRolAdmin(Usuario usuario);
+
+    /**
+     * 
+     * Funcion para cambair de rol a un usuario
+     * @param usuario usuario a rol a cambiar
+     * @param nombreRol nombre del rol qeu se va a cambair
+     */
+    void cambiarRol(Usuario usuario, String nombreRol);
 }
