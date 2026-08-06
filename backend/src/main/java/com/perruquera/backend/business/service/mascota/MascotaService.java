@@ -74,7 +74,7 @@ public class MascotaService implements IMascotaService {
 
         Mascota mascota = repo.findById(id).get();
         mascota.setActivo(false);
-        repo.deleteById(id);
+        repo.save(mascota);
     }
 
     @Override

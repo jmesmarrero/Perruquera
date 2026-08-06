@@ -91,7 +91,7 @@ public class UsuarioService implements IUsuarioService {
         }
         Usuario usuario = repo.findById(id).get();
         usuario.setActivo(false);
-        repo.deleteById(id);
+        repo.save(usuario);
     }
 
     @Override

@@ -71,8 +71,8 @@ public class ServicioService implements IServicioService {
 
         Servicio servicio = repo.findById(id).get();
         servicio.setActivo(false);
-        
-        repo.deleteById(id);
+
+        repo.save(servicio);
     }
 
     @Override
