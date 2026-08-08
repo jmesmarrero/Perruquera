@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.cita.ICitaPersistence;
@@ -43,7 +42,7 @@ public class CitaService implements ICitaService {
                 || hora.isAfter(LocalTime.of(17, 0))) {
             return null;
         }
-        
+
         EstadoCita pendiente = estadoCitaRepo.findByNombre("Pendiente")
                 .orElseThrow(() -> new IllegalArgumentException("Estado no encontrado"));
 
