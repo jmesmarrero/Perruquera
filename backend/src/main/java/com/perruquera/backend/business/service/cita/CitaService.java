@@ -1,11 +1,13 @@
 package com.perruquera.backend.business.service.cita;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.perruquera.backend.adapters.out.persistence.cita.ICitaPersistence;
@@ -31,18 +33,61 @@ public class CitaService implements ICitaService {
 
     @Override
     public Cita save(Cita cita) {
+
+        // 1. Validación básica
         if (!ValidationCita.isValidCita(cita)) {
             return null;
         }
+
+        // 2. La cita no puede estar en el pasado
         if (cita.getFechaHora().isBefore(LocalDateTime.now())) {
             return null;
         }
+
+        // 3. Comprobamos el día de la semana
+        DayOfWeek dia = cita.getFechaHora().getDayOfWeek();
+        if (dia == DayOfWeek.SATURDAY || dia == DayOfWeek.SUNDAY) {
+            return null;
+        }
+
+        // 4. Comprobamos la hora de inicio
         LocalTime hora = cita.getFechaHora().toLocalTime();
         if (hora.isBefore(LocalTime.of(9, 30))
                 || hora.isAfter(LocalTime.of(17, 0))) {
             return null;
         }
 
+        // 5. Calculamos cuándo termina la cita
+        LocalDateTime fechaHoraFin = cita.getFechaHora().plusMinutes(cita.getDuracionEstimada());
+        LocalTime horaFin = fechaHoraFin.toLocalTime();
+
+        // 6. Comprobamos que no termine después de las 17:00
+        if (horaFin.isAfter(LocalTime.of(17, 0))) {
+
+            return null;
+        }
+
+        // no se solapen citas
+        // a. buscamos citas existentes
+        List<Cita> citaLista = repo.findAll();
+
+        // b. Datos de la nueva cita
+        LocalDateTime inicioNueva = cita.getFechaHora();
+        LocalDateTime finNueva = cita.getFechaHora().plusMinutes(cita.getDuracionEstimada());
+
+        // c. Comprobamos solapamientos
+        for (Cita citaExistente : citaLista) {
+
+            LocalDateTime inicioExistente = citaExistente.getFechaHora();
+
+            LocalDateTime finExistente = citaExistente.getFechaHora().plusMinutes(citaExistente.getDuracionEstimada());
+
+            if (inicioNueva.isBefore(finExistente) && finNueva.isAfter(inicioExistente)) {
+                return null;
+            }
+        }
+
+        // Si hemos llegado hasta aquí, podemos guardar
         EstadoCita pendiente = estadoCitaRepo.findByNombre("Pendiente")
                 .orElseThrow(() -> new IllegalArgumentException("Estado no encontrado"));
 
