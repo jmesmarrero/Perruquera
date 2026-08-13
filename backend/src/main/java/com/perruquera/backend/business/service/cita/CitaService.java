@@ -78,6 +78,16 @@ public class CitaService implements ICitaService {
         // c. Comprobamos solapamientos
         for (Cita citaExistente : citaLista) {
 
+            if (citaExistente.getEstado() == null) {
+                throw new IllegalStateException("La cita existente no tiene estado");
+            }
+
+            String nombreEstado = citaExistente.getEstado().getNombre();
+            if (!nombreEstado.equals("Pendiente") && !nombreEstado.equals("Confirmada")
+                    && !nombreEstado.equals("En proceso")) {
+                continue;
+            }
+
             LocalDateTime inicioExistente = citaExistente.getFechaHora();
 
             LocalDateTime finExistente = citaExistente.getFechaHora().plusMinutes(citaExistente.getDuracionEstimada());
